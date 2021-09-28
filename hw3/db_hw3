@@ -1,0 +1,142 @@
+StudentId, StudentName, GroupId, GroupName, CourseId, CourseName, LecturerId, LecturerName, Mark
+
+1.
+-- By Student Id we know his/her Name and group he/she belongs to
+StudentId -> StudentName, GroupId
+-- By Group Id we know the name of the group
+GroupId -> GroupName
+-- Course can't functionally depends on Student or Group because Student and Group has more than one Course
+-- By Course Id we know the name of the Course
+CourseId -> CourseName
+-- More than one Lecturer teaches one Course, one Group has one Lecturer on Course
+-- One Group has one Lecturer, but one Lecturer doesn't have to has one Group (one Lecturer can teach several Groups)
+-- Also One Lecturer can teach several Courses
+CourseId, GroupId -> LecturerId
+LecturerId -> LecturerName
+-- Only one Mark has one Student on his/her Course
+-- GroupId on the left side is redundant because Student has to get his/her Mark during semester in one Group
+-- i.e. Student can change his/her group, but not in semester
+-- Also Student can join on Course only once
+StudentId, CourseId -> Mark
+
+2.1.
+Key K = {X1, X2, ..., Xn} should satisfy K+(on fun. dep.) = A -- all attributes
+For example, key can be set of all attributes, but it is subkey
+If there are no attributes that can be deleted from subkey, given subkey is key
+
+K = {StudentId, StudentName, GroupId, GroupName, CourseId, CourseName, LecturerId, LecturerName, Mark}
+All attributes *Name depends on Id
+K = {StudentId, GroupId, CourseId, LecturerId, Mark}
+StudentId -> GroupId, so GroupId is redundant
+K = {StudentId, CourseId, LecturerId, Mark}
+CourseId, GroupId -> LecturerId && StudentId -> GroupId
+CourseId, StudentId -> LecturerId, Mark
+K = {StudentId, CourseId}
+
+2.2.
+StudentId
+CourseId
+
+3.1.
+{GroupId, CourseId}
+{GroupId, CourseId, LecturerId}
+{GroupId, GroupName, CourseId, CourseName, LecturerId, LecturerName}
+
+3.2.
+{StudentId, CourseId}
+{StudentId, GroupId, CourseId}
+{StudentId, GroupId, CourseId, LecturerId}
+{StudentId, GroupId, CourseId, LecturerId, Mark}
+{StudentId, StudentName, GroupId, GroupName, CourseId, CourseName, LecturerId, LecturerName, Mark}
+
+3.3.
+{StudentId, LecturerId}
+{StudentId, GroupId, LecturerId}
+{StudentId, StudentName, GroupId, GroupName, LecturerId, LecturerName}
+
+4.1r.
+Split right side of fun. dep.
+Before:
+StudentId -> StudentName, GroupId
+After:
+StudentId -> StudentName
+StudentId -> GroupId
+
+4.1d.
+StudentId -> StudentName
+StudentId -> GroupId
+GroupId -> GroupName
+CourseId -> CourseName
+CourseId, GroupId -> LecturerId
+LecturerId -> LecturerName
+StudentId, CourseId -> Mark
+
+4.2r.
+If Y belongs to X+ (on S) then X, A -> Y can be replaced as X -> Y
+
+Before:
+CourseId, GroupId -> LecturerId
+Process:
+CourseId+ = {CourseId, CourseName}
+GroupId+ = {GroupId, GroupName}
+All closures don't contain LecturerId
+After:
+CourseId, GroupId -> LecturerId
+
+Before:
+StudentId, CourseId -> Mark
+Process:
+StudentId+ = {StudentId, StudentName, GroupId, GroupName}
+CourseId+ = {CourseId, CourseName}
+All closures don't contain Mark
+After:
+StudentId, CourseId -> Mark
+
+4.2d.
+StudentId -> StudentName
+StudentId -> GroupId
+GroupId -> GroupName
+CourseId -> CourseName
+CourseId, GroupId -> LecturerId
+LecturerId -> LecturerName
+StudentId, CourseId -> Mark
+
+
+4.3r.
+If Y belongs to X+ (on S without X -> Y) then X -> Y can be removed
+
+All attributes *Name can't exist without *Id, so *Id -> *Name cannot be removed
+
+Before:
+StudentId -> GroupId
+Process:
+Let's see fun. dep.s without given:
+  StudentId -> StudentName
+  GroupId -> GroupName
+  CourseId -> CourseName
+  CourseId, GroupId -> LecturerId
+  LecturerId -> LecturerName
+  StudentId, CourseId -> Mark
+We should get StudentId+ on this fun. dep.s with GroupId
+But StudentId+ (on this fun. dep.s) = {StudentId, StudentName}
+After:
+StudentId -> GroupId
+
+Do this process with rest fun. dep.s:
+
+CourseId, GroupId -> LecturerId
+{CourseId, GroupId}+ (without above fun. dep.s) = {CourseId, CourseName, GroupId, GroupName} <- doesn't contain LecturerId
+
+StudentId, CourseId -> Mark
+{StudentId, CourseId}+ (without above fun. dep.s) = {StudentId, StudentName, GroupId, GroupName, CourseId, CourseName, LecturerId, LecturerName} <- without Mark
+
+Couldn't remove any fun. dep.
+
+4.3d.
+StudentId -> StudentName
+StudentId -> GroupId
+GroupId -> GroupName
+CourseId -> CourseName
+CourseId, GroupId -> LecturerId
+LecturerId -> LecturerName
+StudentId, CourseId -> Mark
