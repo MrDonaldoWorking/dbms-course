@@ -1,0 +1,109 @@
+1.1
+StudentId, StudentName, GroupId, GroupName, CourseId, CourseName, LecturerId, LecturerName, Mark
+1) Has no attributes contains duplicate info
+2) All attributes contains only one value
+3) Has key from functional dependency:
+StudentId -> StudentName, GroupId
+GroupId -> GroupName
+CourseId -> CourseName
+CourseId, GroupId -> LecturerId
+LecturerId -> LecturerName
+StudentId, CourseId -> Mark
+K = {StudentId, CourseId}
+
+1.2
+(StudentId, StudentName, GroupId, GroupName, CourseId, CourseName, LecturerId, LecturerName, Mark) => (StudentId, StudentName, GroupId, GroupName, CourseId, CourseName, LecturerId, LecturerName, Mark);
+
+2.1
+1) Satisfies 1NF
+2) Not key attributes functionally depends from key
+3) Non-key attribute is that which does not in key
+fun. dep.s:
+    StudentId -> StudentName, GroupId
+    GroupId -> GroupName
+    CourseId -> CourseName
+    CourseId, GroupId -> LecturerId
+    LecturerId -> LecturerName
+    StudentId, CourseId -> Mark
+K = {StudentId, CourseId}
+Disturbing fun. dep. (with only part of key on left side):
+    StudentId -> StudentName, GroupId (lack of CourseId)
+    GroupId -> GroupName (lack of CourseId)
+    CourseId -> CourseName (lack of StudentId)
+Separate by disturbing fun. dep.:
+    (StudentId, StudentName, GroupId, GroupName)
+    (CourseId, CourseName)
+    (StudentId, CourseId, LecturerId, LecturerName, Mark)
+
+2.2
+(StudentId, StudentName, GroupId, GroupName, CourseId, CourseName, LecturerId, LecturerName, Mark) => (StudentId, StudentName, GroupId, GroupName); (CourseId, CourseName); (StudentId, CourseId, LecturerId, LecturerName, Mark);
+
+3.1
+1) Satisfies 2NF
+2) Do not have transitive dependency
+    (StudentId, StudentName, GroupId, GroupName)
+    (CourseId, CourseName)
+    (StudentId, CourseId, LecturerId, LecturerName, Mark)
+Transitive dep.s:
+    StudentId -> GroupId -> GroupName
+    StudentId, CourseId -> StudentId, GroupId -> LecturerId -> LecturerName
+Separate by transitive dep.s:
+    (StudentId, StudentName, GroupId)
+    (GroupId, GroupName)
+    (CourseId, CourseName)
+    (StudentId, GroupId, LecturerId)
+    (LecturerId, LecturerName)
+    (StudentId, CourseId, Mark)
+
+3.2
+(StudentId, StudentName, GroupId, GroupName) => (StudentId, StudentName, GroupId); (GroupId, GroupName)
+(CourseId, CourseName) => (CourseId, CourseName);
+(StudentId, CourseId, LecturerId, LecturerName, Mark) => (StudentId, GroupId, LecturerId); (LecturerId, LecturerName); (StudentId, CourseId, Mark);
+
+Б.1
+X -> Y is a trivial functional dependency (Y ⊆ X), X is a superkey for schema
+    (StudentId, StudentName, GroupId): StudentName, GroupId ⊆ StudentId - key
+    (GroupId, GroupName): GroupName ⊆ GroupId - key
+    (CourseId, CourseName): CourseName ⊆ CourseId - key
+    (StudentId, GroupId, LecturerId): LecturerId ⊆ (StudentId, GroupId) - key
+    (LecturerId, LecturerName): LecturerName ⊆ LecturerId - key
+    (StudentId, CourseId, Mark): Mark ⊆ (StudentId, CourseId) - key
+It is Boyce–Codd normal form
+
+Б.2
+(StudentId, StudentName, GroupId) => (StudentId, StudentName, GroupId);
+(GroupId, GroupName) => (GroupId, GroupName);
+(CourseId, CourseName) => (CourseId, CourseName);
+(StudentId, GroupId, LecturerId) => (StudentId, GroupId, LecturerId);
+(LecturerId, LecturerName) => (LecturerId, LecturerName);
+(StudentId, CourseId, Mark) => (StudentId, CourseId, Mark);
+
+4.1
+Relations:
+    (StudentId, StudentName, GroupId)
+    (GroupId, GroupName)
+    (CourseId, CourseName)
+    (StudentId, GroupId, LecturerId)
+    (LecturerId, LecturerName)
+    (StudentId, CourseId, Mark)
+Any relation has only trivial multivalued dependency (X ->> Y, either Y is a subset of X, or X and Y together form the whole set of attributes of the relation) => satisfies 4NF.
+
+4.2
+(StudentId, StudentName, GroupId) => (StudentId, StudentName, GroupId);
+(GroupId, GroupName) => (GroupId, GroupName);
+(CourseId, CourseName) => (CourseId, CourseName);
+(StudentId, GroupId, LecturerId) => (StudentId, GroupId, LecturerId);
+(LecturerId, LecturerName) => (LecturerId, LecturerName);
+(StudentId, CourseId, Mark) => (StudentId, CourseId, Mark);
+
+5.1
+A join dependency *{X1, X2, … Xn}, each of X1, X2, …, X3 is a superkey
+A join dependency that is not multivalued dependency has not found.
+
+5.2
+(StudentId, StudentName, GroupId) => (StudentId, StudentName, GroupId);
+(GroupId, GroupName) => (GroupId, GroupName);
+(CourseId, CourseName) => (CourseId, CourseName);
+(StudentId, GroupId, LecturerId) => (StudentId, GroupId, LecturerId);
+(LecturerId, LecturerName) => (LecturerId, LecturerName);
+(StudentId, CourseId, Mark) => (StudentId, CourseId, Mark);
