@@ -1,0 +1,3 @@
+proj{StudentId}(proj{StudentId, CourseId}(select{LecturerName = :LecturerName}(Marks nj Students nj Plan nj Lecturers))
+gdiv
+proj{CourseId, GroupId}(select{LecturerName = :LecturerName}(Lecturers nj Plan)))

@@ -1,0 +1,3 @@
+proj{GroupId}(select{CourseName = :CourseName}(Courses nj Plan)) nj Students
+diff
+proj{StudentId, StudentName, GroupId}(select{CourseName = :CourseName}(Courses nj Students nj Marks))

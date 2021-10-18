@@ -1,0 +1,1 @@
+proj{StudentId, StudentName, GroupId}(select{Mark = :Mark && CourseId = :CourseId}(Students nj Marks))

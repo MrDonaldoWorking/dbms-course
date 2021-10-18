@@ -1,0 +1,1 @@
+proj{StudentId, CourseName}(Marks nj Students nj Courses) gdiv proj{StudentId, GroupName}(Students nj Groups)

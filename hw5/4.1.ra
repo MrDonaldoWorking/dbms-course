@@ -1,0 +1,1 @@
+Students diff proj{StudentId, StudentName, GroupId}(select{CourseName = :CourseName}(Courses nj Marks nj Students))

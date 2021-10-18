@@ -1,0 +1,1 @@
+proj{StudentName, CourseName}(proj{StudentId, StudentName, CourseName}(Students nj Plan nj Courses) diff proj{StudentId, StudentName, CourseName}(Students nj Marks nj Courses))

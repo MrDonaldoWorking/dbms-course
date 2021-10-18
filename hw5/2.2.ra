@@ -1,0 +1,1 @@
+proj{StudentId, StudentName, GroupName}(select{StudentName = :StudentName}(Students) nj Groups)
