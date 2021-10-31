@@ -1,0 +1,6 @@
+SByL(StudentId) :-
+    Lecturers(LecturerId, LecturerName),
+    LecturerName = :LecturerName,
+    Students(StudentId, _, GroupId),
+    Plan(GroupId, CourseId, LecturerId),
+    Marks(StudentId, CourseId, _).

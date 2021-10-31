@@ -1,0 +1,16 @@
+NeededCoursesInGroup(GroupId, CourseId) :-
+    Lecturers(LecturerId, LecturerName),
+    LecturerName = :LecturerName,
+    Plan(GroupId, CourseId, LecturerId).
+
+Undebted(StudentId, CourseId) :-
+    Marks(StudentId, CourseId, _).
+
+DebtedInNeededCourses(StudentId) :-
+    NeededCoursesInGroup(GroupId, CourseId),
+    Students(StudentId, _, GroupId),
+    not Undebted(StudentId, CourseId).
+
+UndebtedInNeededCourses(StudentId) :-
+    Students(StudentId, _, _),
+    not DebtedInNeededCourses(StudentId).

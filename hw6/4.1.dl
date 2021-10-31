@@ -1,0 +1,8 @@
+Undebted(StudentId, CourseId) :-
+    Marks(StudentId, CourseId, _).
+
+Debted(StudentName, CourseName) :-
+    Students(StudentId, StudentName, GroupId),
+    Courses(CourseId, CourseName),
+    Plan(GroupId, CourseId, _),
+    not Undebted(StudentId, CourseId).
