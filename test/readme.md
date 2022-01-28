@@ -4,7 +4,7 @@
 
 Схема базы данных «Соревнования по программированию».
 
-![](https://imgur.com/a/xbGRGys)
+![ERM](./data/Structure.png)
 
 В таблице _Runs_:
 
