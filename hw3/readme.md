@@ -39,26 +39,29 @@ _Mark_.
 
 ## Минусы
 
-1. Функциональные зависимости
+### 1. Функциональные зависимости
 Пропущена ФЗ: GroupName -> GroupId
-### Я тут сам не понял, почему так нужно, но Гоше виднее ###
+#### Я тут сам не понял, почему так нужно, но Гоше виднее ###
 
-2. Ключи
+### 2. Ключи
 Указанные утверждения не верны: Key K = {X1, X2, ..., Xn} should satisfy K+(on fun. dep.) = A -- all attributes
+
 Не надключ: [StudentId]
+
 Не надключ: [CourseId]
+
 Пропущен ключ: [CourseId, StudentId]
 
-3. Замыкания множеств атрибутов
-    3.1. Замыкание множества атрибутов GroupId , CourseId
-    Нельзя получить из предыдущего множества за один шаг: [CourseId, CourseName, GroupId, GroupName, LecturerId, LecturerName]
-    3.2. Замыкание множества атрибутов StudentId , CourseId
-    Нельзя получить из предыдущего множества за один шаг: [CourseId, CourseName, GroupId, GroupName, LecturerId, LecturerName, Mark, StudentId, StudentName]
-    3.3. Замыкание множества атрибутов StudentId , LecturerId
-    Нельзя получить из предыдущего множества за один шаг: [GroupId, GroupName, LecturerId, LecturerName, StudentId, StudentName]
+### 3. Замыкания множеств атрибутов
+#### 3.1. Замыкание множества атрибутов GroupId , CourseId
+Нельзя получить из предыдущего множества за один шаг: [CourseId, CourseName, GroupId, GroupName, LecturerId, LecturerName]
+#### 3.2. Замыкание множества атрибутов StudentId , CourseId
+Нельзя получить из предыдущего множества за один шаг: [CourseId, CourseName, GroupId, GroupName, LecturerId, LecturerName, Mark, StudentId, StudentName]
+#### 3.3. Замыкание множества атрибутов StudentId , LecturerId
+Нельзя получить из предыдущего множества за один шаг: [GroupId, GroupName, LecturerId, LecturerName, StudentId, StudentName]
 
-4. Неприводимое множество функциональных зависимостей
-    4.1. Первый этап
-    4.2. Второй этап
-    Указанные утверждения не верны: If Y belongs to X+ (on S) then X, A -> Y can be replaced as X -> Y
-    4.3. Третий этап
+### 4. Неприводимое множество функциональных зависимостей
+#### 4.1. Первый этап
+#### 4.2. Второй этап
+Указанные утверждения не верны: If Y belongs to X+ (on S) then X, A -> Y can be replaced as X -> Y
+#### 4.3. Третий этап
