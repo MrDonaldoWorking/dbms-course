@@ -1,0 +1,5 @@
+proj{TeamName}(
+Teams
+diff
+proj{TeamId, TeamName}(select{ContestId = :ContestId}(Sessions nj Teams nj Runs))
+)

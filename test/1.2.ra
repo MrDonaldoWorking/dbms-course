@@ -1,0 +1,1 @@
+proj{TeamName}(Teams nj proj{TeamId}(select{ContestId = :ContestId}(Sessions)))

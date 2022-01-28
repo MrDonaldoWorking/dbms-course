@@ -54,7 +54,7 @@ CourseId
 {StudentId, GroupId, LecturerId}
 {StudentId, StudentName, GroupId, GroupName, LecturerId, LecturerName}
 
-4.1r.
+4.1d.
 Split right side of fun. dep.
 Before:
 StudentId -> StudentName, GroupId
@@ -62,7 +62,7 @@ After:
 StudentId -> StudentName
 StudentId -> GroupId
 
-4.1d.
+4.1r.
 StudentId -> StudentName
 StudentId -> GroupId
 GroupId -> GroupName
@@ -71,7 +71,7 @@ CourseId, GroupId -> LecturerId
 LecturerId -> LecturerName
 StudentId, CourseId -> Mark
 
-4.2r.
+4.2d.
 If Y belongs to X+ (on S) then X, A -> Y can be replaced as X -> Y
 
 Before:
@@ -92,7 +92,7 @@ All closures don't contain Mark
 After:
 StudentId, CourseId -> Mark
 
-4.2d.
+4.2r.
 StudentId -> StudentName
 StudentId -> GroupId
 GroupId -> GroupName
@@ -102,7 +102,7 @@ LecturerId -> LecturerName
 StudentId, CourseId -> Mark
 
 
-4.3r.
+4.3d.
 If Y belongs to X+ (on S without X -> Y) then X -> Y can be removed
 
 All attributes *Name can't exist without *Id, so *Id -> *Name cannot be removed
@@ -132,7 +132,7 @@ StudentId, CourseId -> Mark
 
 Couldn't remove any fun. dep.
 
-4.3d.
+4.3r.
 StudentId -> StudentName
 StudentId -> GroupId
 GroupId -> GroupName

@@ -1,0 +1,181 @@
+Students
+
+-- не важна упорядоченность, SId является PK -> unique
+-- ДЗ-5.1.1 Информация о студентах по :StudenId
+-- ДЗ-5.2.1 Полная информация о студентах по :StudentId
+-- ДЗ-5.8.1 Суммарный балл одного студента по :StudentId
+create unique index SIdIndex on Students using hash (StudentId)
+
+-- покрывающий индекс по имени, в запросах не важен порядок
+-- ДЗ-5.1.2 Информация о студентах по :StudentName
+-- ДЗ-5.2.2 Полная информация о студентах по :StudentName
+-- ДЗ-6.1.1 Информация о студентах по :StudentName
+cteate index SNameIndex on Students using hash (StudentName, StudentId)
+
+-- не важен порядок, позволяет быстрее оперировать с join Groups
+-- ДЗ-5.2.1 Полная информация о студентах (SId, SName, GName) по :SId
+-- ДЗ-5.2.2 Полная информация о студентах по :SName
+-- Дз-6.1.1 Полная информация о студентах по :SName
+create index GIdIndex on Students using hash (GroupId)
+
+Groups
+
+-- не важна упорядоченность, GId является PK -> unique
+-- ДЗ-5.2.1 Полная информация о студентах (SId, SName, GName) по :Sid
+-- ДЗ-5.2.2 Полная информация о студентах по :SName
+-- Дз-6.1.1 Полная информация о студентах по :SName
+create unique index GIdIndex on Groups using hash (GroupId)
+
+-- покрывающий индекс, не важен порядок, ФЗ GName -> GId
+-- ДЗ-6.1.2 Информация о студентах в заданной :GroupName
+-- ДЗ-7.2.4 Перевод студентов из :FromGroupName в :GroupName
+-- ДЗ-7.2.5 Перевод студентов из :FromGroupName в :GroupName, если
+-- целевая группа существует
+create unique index GNameIndex on Groups using hash (GroupName, GroupId)
+
+Courses
+
+-- не важна упорядоченность, CId является PK -> unique
+-- ДЗ-5.3.2 Информация о студентах с :Mark по предмету :CourseName
+-- ДЗ-5.4.1 Информация о всех студентах не имеющих оценки по :CName
+-- Дз-5.4.2 Информация о студентах не имеющих оценки по :CName,
+-- у которых есть этот предмет
+create unique index CIdIndex on Courses using hash (CourseId)
+
+-- покрывающий индекс, не важен порядок
+-- ДЗ-5.3.2 Информация о студентах с :Mark по предмету :CourseName
+-- ДЗ-5.4.1 Информация о всех студентах не имеющих оценки по :CName
+-- Дз-5.4.2 Информация о студентах не имеющих оценки по :CName,
+-- у которых есть этот предмет
+create index CNameIndex on Courses using hash (CourseName, CourseId)
+
+Lecturers
+
+-- не важна упорядоченность, LId является PK -> unique
+-- ДЗ-5.3.4 Информация о студентах с :Mark по предмету, который
+-- у него вёл :LecturerName
+-- ДЗ-5.3.6 Информация о студентах с :Mark по предмету у :LName
+-- Дз-5.6.1 Идентификаторы студентах по :LecturerName
+create unique index LIdIndex on Lecturers using hash (LecturersId)
+
+-- покрывающий индекс, не важен порядок
+-- ДЗ-5.3.4 Информация о студентах с :Mark по предмету, который
+-- у него вёл :LecturerName
+-- ДЗ-5.3.6 Информация о студентах с :Mark по предмету у :LName
+-- Дз-5.6.1 Идентификаторы студентах по :LecturerName
+create index LNameIndex on Lecturers using hash (LecturersName, LecturersId)
+
+Plan
+
+-- можно использовать как с первым, так и со всеми аргументами
+-- ДЗ-5.6.3 Идентификаторы студентов по :LName имеющих оценки по
+-- всем предметам преподавателя
+-- ДЗ-5.6.4 Идентификаторы студентов по :LName имеющих оценки по
+-- всем предметам преподавателя, которые он вёл у студента
+-- ДЗ-5.10 Для каждого SName Total, Passed, Failed
+cteate index CGIndex on Plan using btree (CourseId, GroupId)
+
+-- можно использовать как с первым, так и со всеми аргументами
+-- ДЗ-5.6.3 Идентификаторы студентов по :LName имеющих оценки по
+-- всем предметам преподавателя
+-- ДЗ-5.6.4 Идентификаторы студентов по :LName имеющих оценки по
+-- всем предметам преподавателя, которые он вёл у студента
+-- ДЗ-5.10 Для каждого SName Total, Passed, Failed
+cteate index GCIndex on Plan using btree (GroupId, CourseId)
+
+-- не важен порядок
+-- ДЗ-5.6.1 Идентификаторы студентов по :LName имеющих хотя бы
+-- одну оценку у преподавателя
+-- ДЗ-5.6.3 Идентификаторы студентов по :LName имеющих оценки по
+-- всем предметам преподавателя
+-- ДЗ-5.6.4 Идентификаторы студентов по :LName имеющих оценки по
+-- всем предметам преподавателя, которые он вёл у студента
+create index LIdIndex on Plan using hash (LecturerId)
+
+Marks
+
+-- можно использовать как с первым, так и со всеми аргументами
+-- ДЗ-5.5.2 Для каждого студента ФИО и названия предметов, которые
+-- есть по плану, но у него нет оценок
+-- ДЗ-5.6.4 Идентификаторы студентов по :LName имеющих оценки по
+-- всем предметам преподавателя, которые он вёл у студента
+-- ДЗ-5.10 Для каждого SName Total, Passed, Failed
+create index SCIndex on Marks using btree (StudentId, CourseId)
+
+-- можно использовать как с первым, так и со всеми аргументами
+-- ДЗ-5.5.2 Для каждого студента ФИО и названия предметов, которые
+-- есть по плану, но у него нет оценок
+-- ДЗ-5.6.4 Идентификаторы студентов по :LName имеющих оценки по
+-- всем предметам преподавателя, которые он вёл у студента
+-- ДЗ-5.7.2 Названия групп и предметов, такие что все студенты группы
+-- сдали предмет
+create index CSIndex on Marks using btree (StudentId, CourseId)
+
+-- покрывающий индекс, не важен порядок
+-- ДЗ-5.3.1 Информация о студентах с :Mark по предмету :CourseId
+-- ДЗ-5.3.2 Информация о студентах с :Mark по предмету :CourseName
+-- ДЗ-5.3.3 Информация о студентах с :Mark по предмету, который
+-- вёл :LecturerName
+create index MarkIndex on Marks using hash (Mark, CourseId)
+
+
+SQL 2
+
+select avg(Mark)
+    from Students
+        natural join Marks
+    where GroupId = (
+        select GroupId from Groups where GroupName = 'M3435'
+    )
+    and CourseId = (
+        select CourseId from Courses where CourseName = 'DBMS'
+    )
+
+
+-- не важен порядок, ускорение соединения с Marks
+create index SIdIndex on Students using hash (StudentId)
+
+-- не важен порядок, ускорение соединения с Students
+create index SIdIndex on Marks using hash (StudentId)
+
+-- покрывающий индекс, порядок не важен, ФЗ GName -> GId
+create unique index GNameIndex on Groups using hash (GroupName, GroupId)
+
+-- покрывающий индекс, порядок не важен
+create unique index CNameIndex on Courses using hash (CourseName, CourseId)
+
+SQL 3 1
+
+-- вывести информацию обо всех Ивановых из группы :GroupId
+select StudentId, StudentName, GroupId
+    from Students
+    where StudentName like 'Иванов%'
+        and GroupId = :GroupId
+
+create index SNameGIdIndex on Students using btree (StudentName, GroupId)
+
+SQL 3 2
+
+-- вывести SId, SName студентов в лексикографическом порядке
+-- с заданной оценкой :Mark
+select distinct StudentId, StudentName
+    from Students
+        natural join Marks
+    where Mark = :Mark
+    order by StudentName
+
+create index MarkSIdIndex on Marks using btree (Mark, StudentId)
+
+SQL 3 3
+
+-- Лучшие студенты (имеющие наивысший балл среди всех)
+-- по курсу :CourseId
+select distinct StudentId, StudentName
+    from Students
+        natural join Marks
+    where CourseId = :CourseId
+        and Mark >= all (
+            select Mark from Marks where CourseId = :CourseId
+        )
+
+create index CMSIndex on Marks using btree (CourseId, Mark, StudentId)

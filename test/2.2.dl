@@ -1,0 +1,7 @@
+AcceptedOnTask(TeamId) :-
+    Runs(_, SessionId, :Letter, _, 1),
+    Sessions(SessionId, TeamId, :ContestId, _).
+
+FailedOnTask(TeamName) :-
+    Teams(TeamId, TeamName),
+    not AcceptedOnTask(TeamId).

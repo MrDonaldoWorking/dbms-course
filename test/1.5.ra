@@ -1,0 +1,5 @@
+proj{TeamName}(proj{TeamId, TeamName}(
+proj{ContestId, TeamId, TeamName}(Teams cj Contests)
+diff
+proj{ContestId, TeamId, TeamName}(Teams nj Sessions nj Runs)
+))
