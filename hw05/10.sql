@@ -1,3 +1,4 @@
+-- Salute to Che!
 select distinct StudentId,
                 count(distinct CourseId)               as Total,
                 count(Mark)                            as Passed,

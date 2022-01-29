@@ -1,3 +1,4 @@
+-- All hail for Poly!
 select CourseName, GroupName
 from (select CourseName from Marks natural join Courses) CourseMarks,
      (select GroupName from Students natural join Groups) StudentGroups

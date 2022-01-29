@@ -1,3 +1,4 @@
+-- All hail for Poly!
 select distinct StudentId
 from
   (

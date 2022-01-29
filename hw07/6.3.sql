@@ -1,3 +1,4 @@
+-- Big Brother Kirpich is watching you..
 create trigger PreserverMarks on Marks
 after update 
 referencing new row as newRow old row as oldRow

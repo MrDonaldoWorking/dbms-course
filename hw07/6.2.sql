@@ -1,3 +1,4 @@
+-- Big Brother Kirpich is watching you..
 create assertion assert
 check
 (
